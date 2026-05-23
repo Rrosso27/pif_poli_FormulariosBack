@@ -52,6 +52,9 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
+# Generate application key into .env (baked into image as fallback)
+RUN cp .env.example .env && php artisan key:generate --force
+
 # Configure Apache virtual host
 COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
 

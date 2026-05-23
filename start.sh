@@ -8,18 +8,8 @@ echo "Configuring Apache on port $APP_PORT..."
 sed -i "s/Listen 80/Listen $APP_PORT/" /etc/apache2/ports.conf
 sed -i "s/<VirtualHost \*:80>/<VirtualHost *:$APP_PORT>/" /etc/apache2/sites-available/000-default.conf
 
-# Ensure .env exists — artisan key:generate needs a file to write to
-if [ ! -f /var/www/html/.env ]; then
-    touch /var/www/html/.env
-fi
-
-# Generate APP_KEY if not provided via environment variable
-if [ -z "$APP_KEY" ]; then
-    echo "Generating application key..."
-    php artisan key:generate --force
-    # Export so the current process uses the new key
-    export APP_KEY=$(grep '^APP_KEY=' /var/www/html/.env | cut -d '=' -f2-)
-fi
+# APP_KEY is already baked into the image via Dockerfile.
+# If Render provides APP_KEY as an env var, it overrides the .env value automatically.
 
 # Show DB config for debugging (no password)
 echo "DB config => connection=${DB_CONNECTION} host=${DB_HOST} port=${DB_PORT} database=${DB_DATABASE} user=${DB_USERNAME}"
