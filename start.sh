@@ -21,6 +21,9 @@ if [ -z "$APP_KEY" ]; then
     export APP_KEY=$(grep '^APP_KEY=' /var/www/html/.env | cut -d '=' -f2-)
 fi
 
+# Show DB config for debugging (no password)
+echo "DB config => connection=${DB_CONNECTION} host=${DB_HOST} port=${DB_PORT} database=${DB_DATABASE} user=${DB_USERNAME}"
+
 # Wait for DB and run migrations with retry
 echo "Running database migrations..."
 RETRIES=5
