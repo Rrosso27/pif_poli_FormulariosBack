@@ -1,0 +1,61 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Deploy: connect repo in Render dashboard and it will use this file automatically.
+
+services:
+  - type: web
+    name: pif-poli-api
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    # Render routes HTTP traffic to whatever port the container exposes via $PORT
+    envVars:
+      - key: APP_NAME
+        value: PifPoliAPI
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      # Set APP_KEY manually in the Render dashboard (php artisan key:generate)
+      - key: APP_KEY
+        sync: false
+      # Set APP_URL to your Render service URL after first deploy
+      - key: APP_URL
+        sync: false
+      # Database — values injected automatically from the linked PostgreSQL instance
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        fromDatabase:
+          name: pif-poli-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: pif-poli-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: pif-poli-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: pif-poli-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: pif-poli-db
+          property: password
+      # Runtime settings
+      - key: CACHE_DRIVER
+        value: file
+      - key: SESSION_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: LOG_CHANNEL
+        value: stderr
+
+databases:
+  - name: pif-poli-db
+    plan: free
+    databaseName: pifpoli
+    user: pifpoli

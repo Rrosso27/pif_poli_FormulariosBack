@@ -1,0 +1,15 @@
+.env
+.git/
+.gitignore
+node_modules/
+vendor/
+storage/logs/*.log
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+tests/
+.phpunit.result.cache
+docker-compose*.yml
+*.md
+.editorconfig
+phpunit.xml

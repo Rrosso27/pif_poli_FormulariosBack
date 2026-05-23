@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentación – prueba-tecnica-smartSoluctions-app</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      line-height: 1.7;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #58a6ff;
+      margin-bottom: 0.4rem;
+    }
+
+    header p {
+      color: #8b949e;
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #58a6ff;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin: 0.25rem;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .step {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .step-number {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: #1f6feb;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e6edf3;
+    }
+
+    .step-body {
+      padding: 1rem 1.25rem;
+    }
+
+    .step-body p {
+      margin-bottom: 0.75rem;
+      color: #8b949e;
+      font-size: 0.95rem;
+    }
+
+    .step-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Code block */
+    .code-block {
+      position: relative;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      margin: 0.75rem 0 0;
+      overflow: hidden;
+    }
+
+    .code-block .lang-label {
+      display: block;
+      font-size: 0.7rem;
+      color: #8b949e;
+      background: #161b22;
+      padding: 0.25rem 0.75rem;
+      border-bottom: 1px solid #30363d;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .code-block pre {
+      padding: 0.85rem 1rem;
+      overflow-x: auto;
+    }
+
+    .code-block code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.9rem;
+      color: #79c0ff;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.4rem;
+      right: 0.5rem;
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #8b949e;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: #30363d;
+      color: #c9d1d9;
+    }
+
+    /* Link */
+    a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Note */
+    .note {
+      background: #161b22;
+      border-left: 3px solid #1f6feb;
+      border-radius: 0 6px 6px 0;
+      padding: 0.6rem 1rem;
+      font-size: 0.88rem;
+      color: #8b949e;
+      margin-top: 0.6rem;
+    }
+
+    /* ── Database Schema ── */
+    .schema-section {
+      margin-top: 3rem;
+    }
+
+    .schema-section h2 {
+      font-size: 1.3rem;
+      color: #e6edf3;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .schema-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .db-table {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .db-table-header {
+      background: #1f6feb22;
+      border-bottom: 1px solid #30363d;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .db-table-header .tbl-icon {
+      font-size: 0.9rem;
+    }
+
+    .db-table-header .tbl-name {
+      font-weight: 700;
+      color: #58a6ff;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .db-table-body {
+      padding: 0.5rem 0;
+    }
+
+    .db-col {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 0.3rem 1rem;
+      font-size: 0.82rem;
+      gap: 0.5rem;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .db-col:last-child {
+      border-bottom: none;
+    }
+
+    .col-name {
+      color: #e6edf3;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      white-space: nowrap;
+    }
+
+    .col-name.pk  { color: #f0883e; }
+    .col-name.fk  { color: #d2a8ff; }
+
+    .col-type {
+      color: #8b949e;
+      font-size: 0.75rem;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      text-align: right;
+    }
+
+    .col-badge {
+      font-size: 0.62rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .col-badge.pk  { background: #f0883e22; color: #f0883e; border: 1px solid #f0883e55; }
+    .col-badge.fk  { background: #d2a8ff22; color: #d2a8ff; border: 1px solid #d2a8ff55; }
+    .col-badge.uq  { background: #3fb95022; color: #3fb950; border: 1px solid #3fb95055; }
+    .col-badge.nu  { background: #30363d;   color: #8b949e; border: 1px solid #484f58;   }
+
+    .schema-legend {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: #8b949e;
+    }
+
+    .schema-legend span {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .schema-legend .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    .dot-pk  { background: #f0883e; }
+    .dot-fk  { background: #d2a8ff; }
+    .dot-uq  { background: #3fb950; }
+    .dot-nu  { background: #484f58; }
+
+    /* Relations diagram */
+    .relations {
+      margin-top: 1.25rem;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+
+    .relations h3 {
+      font-size: 0.9rem;
+      color: #8b949e;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .rel-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .rel-list li {
+      font-size: 0.84rem;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      color: #c9d1d9;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .rel-list li .arrow { color: #58a6ff; }
+    .rel-list li .tbl   { color: #f0883e; }
+    .rel-list li .col   { color: #d2a8ff; }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      color: #484f58;
+      font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <h1>pif</h1>
+      <p>Guía de instalación y puesta en marcha</p>
+      <div style="margin-top:0.75rem">
+        <span class="badge">Laravel</span>
+        <span class="badge">PHP</span>
+        <span class="badge">MySQL</span>
+        <span class="badge">REST API</span>
+      </div>
+    </header>
+
+    <div class="steps">
+
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <span class="step-title">Clonar el repositorio</span>
+        </div>
+        <div class="step-body">
+          <p>Clona el repositorio en tu máquina local con Git.</p>
+          <div class="code-block">
+            <span class="lang-label">bash</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            <pre><code>git clone https://github.com/Rrosso27/pif_poli_FormulariosBack.git</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <span class="step-title">Crear la base de datos</span>
+        </div>
+        <div class="step-body">
+          <p>Antes de continuar, crea una base de datos con el nombre:</p>
+          <div class="code-block">
+            <span class="lang-label">sql</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            <pre><code>pif_poli_formularios_back</code></pre>
+          </div>
+          <div class="note">
+            Este nombre es opcional. Si decides cambiarlo, recuerda actualizarlo también en el archivo <strong>.env</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">3</div>
+          <span class="step-title">Crear el archivo .env</span>
+        </div>
+        <div class="step-body">
+          <p>
+            Crea una copia del archivo
+            <a href="https://github.com/Rrosso27/prueba-tecnica-smartSoluctions-app/blob/main/.env.example" target="_blank" rel="noopener">.env.example</a>
+            y renómbrala como <strong>.env</strong>.
+          </p>
+          <div class="code-block">
+            <span class="lang-label">bash</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            <pre><code>cp .env.example .env</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">4</div>
+          <span class="step-title">Instalar dependencias de Composer</span>
+        </div>
+        <div class="step-body">
+          <p>
+            Asegúrate de tener <a href="https://getcomposer.org/" target="_blank" rel="noopener">Composer</a> instalado
+            y ejecuta el siguiente comando para instalar las dependencias del proyecto.
+          </p>
+          <div class="code-block">
+            <span class="lang-label">bash</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            <pre><code>composer install</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">5</div>
+          <span class="step-title">Ejecutar las migraciones</span>
+        </div>
+        <div class="step-body">
+          <p>
+            Las migraciones gestionan la estructura de la base de datos y permiten versionar sus cambios.
+            Ejecuta el siguiente comando para aplicarlas.
+          </p>
+          <div class="code-block">
+            <span class="lang-label">bash</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            <pre><code>php artisan migrate</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">6</div>
+          <span class="step-title">Ejecutar los seeders</span>
+        </div>
+        <div class="step-body">
+          <p>
+            Los seeders insertan datos iniciales en la base de datos —en este caso, una encuesta de ejemplo
+            para facilitar la interacción con el sistema.
+          </p>
+          <div class="code-block">
+            <span class="lang-label">bash</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            <pre><code>php artisan db:seed</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">7</div>
+          <span class="step-title">Ejecutar el servicio 🚀</span>
+        </div>
+        <div class="step-body">
+          <p>
+            Verifica que todos los pasos anteriores se hayan completado correctamente y levanta el servidor de desarrollo.
+          </p>
+          <div class="code-block">
+            <span class="lang-label">bash</span>
+            <button class="copy-btn" onclick="copyCode(this)">Copiar</button>
+            <pre><code>php artisan serve</code></pre>
+          </div>
+          <div class="note">
+            El servidor estará disponible por defecto en <strong>http://127.0.0.1:8000</strong>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.steps -->
+
+    <!-- ── Database Schema ── -->
+    <section class="schema-section">
+      <h2>Esquema de la base de datos</h2>
+
+      <div class="schema-grid">
+
+        <!-- users -->
+        <div class="db-table">
+          <div class="db-table-header">
+            <span class="tbl-icon">🗄️</span>
+            <span class="tbl-name">users</span>
+          </div>
+          <div class="db-table-body">
+            <div class="db-col"><span class="col-name pk">id</span>         <span class="col-type">bigint</span>    <span class="col-badge pk">PK</span></div>
+            <div class="db-col"><span class="col-name">name</span>          <span class="col-type">string</span>    <span></span></div>
+            <div class="db-col"><span class="col-name">email</span>         <span class="col-type">string</span>    <span class="col-badge uq">UQ</span></div>
+            <div class="db-col"><span class="col-name">email_verified_at</span><span class="col-type">timestamp</span><span class="col-badge nu">NULL</span></div>
+            <div class="db-col"><span class="col-name">password</span>      <span class="col-type">string</span>    <span></span></div>
+            <div class="db-col"><span class="col-name">remember_token</span><span class="col-type">string</span>    <span class="col-badge nu">NULL</span></div>
+            <div class="db-col"><span class="col-name">created_at</span>    <span class="col-type">timestamp</span><span class="col-badge nu">NULL</span></div>
+            <div class="db-col"><span class="col-name">updated_at</span>    <span class="col-type">timestamp</span><span class="col-badge nu">NULL</span></div>
+          </div>
+        </div>
+
+        <!-- surveys -->
+        <div class="db-table">
+          <div class="db-table-header">
+            <span class="tbl-icon">📋</span>
+            <span class="tbl-name">surveys</span>
+          </div>
+          <div class="db-table-body">
+            <div class="db-col"><span class="col-name pk">id</span>         <span class="col-type">bigint</span>    <span class="col-badge pk">PK</span></div>
+            <div class="db-col"><span class="col-name">title</span>         <span class="col-type">string</span>    <span></span></div>
+            <div class="db-col"><span class="col-name">description</span>   <span class="col-type">text</span>      <span class="col-badge nu">NULL</span></div>
+            <div class="db-col"><span class="col-name">created_at</span>    <span class="col-type">timestamp</span><span class="col-badge nu">NULL</span></div>
+            <div class="db-col"><span class="col-name">updated_at</span>    <span class="col-type">timestamp</span><span class="col-badge nu">NULL</span></div>
+          </div>
+        </div>
+
+        <!-- questions -->
+        <div class="db-table">
+          <div class="db-table-header">
+            <span class="tbl-icon">❓</span>
+            <span class="tbl-name">questions</span>
+          </div>
+          <div class="db-table-body">
+            <div class="db-col"><span class="col-name pk">id</span>            <span class="col-type">bigint</span>    <span class="col-badge pk">PK</span></div>
+            <div class="db-col"><span class="col-name fk">survey_id</span>     <span class="col-type">bigint</span>    <span class="col-badge fk">FK</span></div>
+            <div class="db-col"><span class="col-name">question_text</span>    <span class="col-type">string</span>    <span></span></div>
+            <div class="db-col"><span class="col-name">question_type</span>    <span class="col-type">enum</span>      <span></span></div>
+            <div class="db-col"><span class="col-name">options</span>          <span class="col-type">json</span>      <span class="col-badge nu">NULL</span></div>
+            <div class="db-col"><span class="col-name">created_at</span>       <span class="col-type">timestamp</span><span class="col-badge nu">NULL</span></div>
+            <div class="db-col"><span class="col-name">updated_at</span>       <span class="col-type">timestamp</span><span class="col-badge nu">NULL</span></div>
+          </div>
+        </div>
+
+        <!-- responses -->
+        <div class="db-table">
+          <div class="db-table-header">
+            <span class="tbl-icon">💬</span>
+            <span class="tbl-name">responses</span>
+          </div>
+          <div class="db-table-body">
+            <div class="db-col"><span class="col-name pk">id</span>           <span class="col-type">bigint</span>    <span class="col-badge pk">PK</span></div>
+            <div class="db-col"><span class="col-name fk">user_id</span>      <span class="col-type">bigint</span>    <span class="col-badge fk">FK</span></div>
+            <div class="db-col"><span class="col-name fk">question_id</span> <span class="col-type">bigint</span>    <span class="col-badge fk">FK</span></div>
+            <div class="db-col"><span class="col-name">answer</span>         <span class="col-type">text</span>      <span></span></div>
+            <div class="db-col"><span class="col-name">created_at</span>     <span class="col-type">timestamp</span><span class="col-badge nu">NULL</span></div>
+            <div class="db-col"><span class="col-name">updated_at</span>     <span class="col-type">timestamp</span><span class="col-badge nu">NULL</span></div>
+          </div>
+        </div>
+
+      </div><!-- /.schema-grid -->
+
+      <!-- legend -->
+      <div class="schema-legend">
+        <span><span class="dot dot-pk"></span> Primary Key</span>
+        <span><span class="dot dot-fk"></span> Foreign Key</span>
+        <span><span class="dot dot-uq"></span> Unique</span>
+        <span><span class="dot dot-nu"></span> Nullable</span>
+      </div>
+
+      <!-- relations -->
+      <div class="relations">
+        <h3>Relaciones</h3>
+        <ul class="rel-list">
+          <li>
+            <span class="tbl">surveys</span>
+            <span class="arrow">──┤ tiene muchas ├──</span>
+            <span class="tbl">questions</span>
+            <span style="color:#8b949e">( questions.survey_id → surveys.id, cascade )</span>
+          </li>
+          <li>
+            <span class="tbl">users</span>
+            <span class="arrow">──┤ tiene muchas ├──</span>
+            <span class="tbl">responses</span>
+            <span style="color:#8b949e">( responses.user_id → users.id, cascade )</span>
+          </li>
+          <li>
+            <span class="tbl">questions</span>
+            <span class="arrow">──┤ tiene muchas ├──</span>
+            <span class="tbl">responses</span>
+            <span style="color:#8b949e">( responses.question_id → questions.id, cascade )</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- question_type enum values -->
+      <div class="relations" style="margin-top:1rem;">
+        <h3>Valores del enum <code style="color:#58a6ff;font-size:0.85rem">question_type</code></h3>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.25rem;">
+          <span class="col-badge" style="background:#21262d;color:#79c0ff;border:1px solid #30363d;padding:0.25rem 0.65rem;font-size:0.8rem;border-radius:6px;">text</span>
+          <span class="col-badge" style="background:#21262d;color:#79c0ff;border:1px solid #30363d;padding:0.25rem 0.65rem;font-size:0.8rem;border-radius:6px;">single</span>
+          <span class="col-badge" style="background:#21262d;color:#79c0ff;border:1px solid #30363d;padding:0.25rem 0.65rem;font-size:0.8rem;border-radius:6px;">multiple</span>
+          <span class="col-badge" style="background:#21262d;color:#79c0ff;border:1px solid #30363d;padding:0.25rem 0.65rem;font-size:0.8rem;border-radius:6px;">scale</span>
+          <span class="col-badge" style="background:#21262d;color:#79c0ff;border:1px solid #30363d;padding:0.25rem 0.65rem;font-size:0.8rem;border-radius:6px;">boolean</span>
+        </div>
+      </div>
+
+    </section>
+
+    <footer>
+      <p>prueba-tecnica-smartSoluctions-app &copy; 2025</p>
+    </footer>
+
+  </div><!-- /.container -->
+
+  <script>
+    function copyCode(btn) {
+      const code = btn.closest('.code-block').querySelector('code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const original = btn.textContent;
+        btn.textContent = '¡Copiado!';
+        btn.style.color = '#3fb950';
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.style.color = '';
+        }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>
