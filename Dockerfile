@@ -53,16 +53,7 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
 # Configure Apache virtual host
-RUN printf '<VirtualHost *:80>\n\
-    DocumentRoot /var/www/html/public\n\
-    <Directory /var/www/html/public>\n\
-        Options Indexes FollowSymLinks\n\
-        AllowOverride All\n\
-        Require all granted\n\
-    </Directory>\n\
-    ErrorLog ${APACHE_LOG_DIR}/error.log\n\
-    CustomLog ${APACHE_LOG_DIR}/access.log combined\n\
-</VirtualHost>\n' > /etc/apache2/sites-available/000-default.conf
+COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Copy and configure startup script
 COPY start.sh /usr/local/bin/start.sh
